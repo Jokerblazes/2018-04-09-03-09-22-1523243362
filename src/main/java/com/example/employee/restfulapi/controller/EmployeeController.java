@@ -25,20 +25,26 @@ public class EmployeeController {
         return employeeRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Employee getEmployeeById(@PathVariable Long id) {
         return employeeRepository.findOne(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "/page/{page}/pageSize/{pageSize}")
-    public List<Employee> getEmployeesByPage(@PathVariable Integer page,@PathVariable Integer pageSize) {
+    @RequestMapping(method = RequestMethod.GET, value = "/page/{page}/pageSize/{pageSize}")
+    public List<Employee> getEmployeesByPage(@PathVariable Integer page, @PathVariable Integer pageSize) {
         Page<Employee> employeePage = employeeRepository.findAll(new PageRequest(page - 1, pageSize));
         return employeePage.getContent();
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "/male")
+    @RequestMapping(method = RequestMethod.GET, value = "/male")
     public List<Employee> getEmplyeesGenderIsMale() {
         String male = "male";
         return employeeRepository.findEmployeeByGender(male);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public boolean addEmployee(Employee employee) {
+        employeeRepository.save(employee);
+        return true;
     }
 }

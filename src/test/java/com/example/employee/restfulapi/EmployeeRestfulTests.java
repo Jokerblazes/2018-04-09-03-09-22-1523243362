@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -106,5 +107,18 @@ public class EmployeeRestfulTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn().getResponse().getContentAsString();
         assertEquals(contentAsString,result);
+    }
+
+    @Test
+    public void testAddEmployee() throws Exception {
+        String contentAsString = mockMvc.perform(post("/employees")
+                .param("name", "name1")
+                .param("age", "1")
+                .param("gender", "male")
+                .param("salary", "5000")
+                .param("companyId", "1").
+                        contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse().getContentAsString();
+        assertEquals(contentAsString,"true");
     }
 }
