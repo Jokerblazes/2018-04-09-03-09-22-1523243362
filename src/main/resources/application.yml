@@ -9,6 +9,8 @@ spring:
   jpa:
     show-sql: true
     hibernate:
+
       naming:
         implicitStrategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physicalStrategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    ddl-auto: none
