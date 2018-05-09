@@ -47,4 +47,10 @@ public class EmployeeController {
         employeeRepository.save(employee);
         return true;
     }
+
+    @RequestMapping(method = RequestMethod.PUT,value = "/{id}")
+    public boolean updateEmployee(Employee employee) {
+        employeeRepository.save(employee);
+        return true;
+    }
 }
