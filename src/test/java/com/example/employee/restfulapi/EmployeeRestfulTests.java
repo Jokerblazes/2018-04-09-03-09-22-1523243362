@@ -78,13 +78,31 @@ public class EmployeeRestfulTests {
     }
 
     @Test
-    public void testEmployeesByPage() throws Exception {
+    public void testGetEmployeesByPage() throws Exception {
         String result = "[{\"id\":1,\"name\":\"baidu1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":1}," +
                 "{\"id\":2,\"name\":\"baidu2\",\"age\":19,\"gender\":\"female\",\"salary\":7000,\"companyId\":1}," +
                 "{\"id\":3,\"name\":\"baidu3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":1}," +
                 "{\"id\":4,\"name\":\"alibaba1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":2}," +
                 "{\"id\":5,\"name\":\"alibaba2\",\"age\":19,\"gender\":\"female\",\"salary\":7000,\"companyId\":2}]";
         String contentAsString = mockMvc.perform(get("/employees/page/1/pageSize/5")).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andReturn().getResponse().getContentAsString();
+        assertEquals(contentAsString,result);
+    }
+
+    @Test
+    public void testGetEmployeesByGender() throws Exception {
+        String result = "[{\"id\":1,\"name\":\"baidu1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":1}," +
+                "{\"id\":3,\"name\":\"baidu3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":1}," +
+                "{\"id\":4,\"name\":\"alibaba1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":2}," +
+                "{\"id\":6,\"name\":\"alibaba3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":2}," +
+                "{\"id\":7,\"name\":\"ThoughtWorks1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":3}," +
+                "{\"id\":9,\"name\":\"ThoughtWorks3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":3}," +
+                "{\"id\":10,\"name\":\"tengxun1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":4}," +
+                "{\"id\":12,\"name\":\"tengxun3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":4}," +
+                "{\"id\":13,\"name\":\"huiwei1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":5}," +
+                "{\"id\":15,\"name\":\"huiwei3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":5}]";
+        String contentAsString = mockMvc.perform(get("/employees/male")).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn().getResponse().getContentAsString();
         assertEquals(contentAsString,result);
