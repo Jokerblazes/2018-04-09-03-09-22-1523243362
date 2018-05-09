@@ -53,4 +53,10 @@ public class CompanyController {
         companyRepository.save(company);
         return true;
     }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public boolean deleteCompany(@PathVariable Long id) {
+        companyRepository.delete(id);
+        return true;
+    }
 }

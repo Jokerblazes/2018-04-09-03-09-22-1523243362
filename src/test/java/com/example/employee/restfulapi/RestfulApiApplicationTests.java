@@ -139,7 +139,12 @@ public class RestfulApiApplicationTests {
         assertEquals(contentAsString,"true");
     }
 
-
+    @Test
+    public void testDeleteCompany() throws Exception {
+        String contentAsString = mockMvc.perform(delete("/companies/1"))
+                .andReturn().getResponse().getContentAsString();
+        assertEquals(contentAsString,"true");
+    }
 
 
 }
