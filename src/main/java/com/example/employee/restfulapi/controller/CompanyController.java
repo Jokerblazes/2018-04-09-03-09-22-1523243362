@@ -20,5 +20,8 @@ public class CompanyController {
         return companyRepository.findAll();
     }
 
-
+    @RequestMapping(value = "/{id}")
+    public Company getCompanyById(@PathVariable Long id) {
+        return companyRepository.findOne(id);
+    }
 }

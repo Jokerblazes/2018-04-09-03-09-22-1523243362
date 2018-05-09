@@ -1,6 +1,7 @@
 package com.example.employee.restfulapi;
 
 import com.example.employee.restfulapi.controller.CompanyController;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -59,5 +61,18 @@ public class RestfulApiApplicationTests {
         assertEquals(contentAsString, result);
     }
 
+    @Test
+    public void getCompanyById() throws Exception {
+        String result = "{\"id\":1,\"companyName\":\"baidu\",\"employeesNumber\":1000," +
+                "\"employees\":[{\"id\":1,\"name\":\"baidu1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":1}," +
+                "{\"id\":2,\"name\":\"baidu2\",\"age\":19,\"gender\":\"female\",\"salary\":7000,\"companyId\":1}," +
+                "{\"id\":3,\"name\":\"baidu3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":1}]}";
+        String contentAsString = mockMvc.perform(get("/companies/1")).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.companyName").value("baidu"))
+                .andExpect(jsonPath("$.employeesNumber").value(1000))
+                .andReturn().getResponse().getContentAsString();
+        assertEquals(contentAsString,result);
+    }
 
 }
