@@ -62,7 +62,7 @@ public class RestfulApiApplicationTests {
     }
 
     @Test
-    public void getCompanyById() throws Exception {
+    public void testGetCompanyById() throws Exception {
         String result = "{\"id\":1,\"companyName\":\"baidu\",\"employeesNumber\":1000," +
                 "\"employees\":[{\"id\":1,\"name\":\"baidu1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":1}," +
                 "{\"id\":2,\"name\":\"baidu2\",\"age\":19,\"gender\":\"female\",\"salary\":7000,\"companyId\":1}," +
@@ -75,4 +75,14 @@ public class RestfulApiApplicationTests {
         assertEquals(contentAsString,result);
     }
 
+    @Test
+    public void testGetEmployeesByCompanyId() throws Exception {
+        String result = "[{\"id\":1,\"name\":\"baidu1\",\"age\":20,\"gender\":\"male\",\"salary\":6000,\"companyId\":1}," +
+                "{\"id\":2,\"name\":\"baidu2\",\"age\":19,\"gender\":\"female\",\"salary\":7000,\"companyId\":1}," +
+                "{\"id\":3,\"name\":\"baidu3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":1}]";
+        String contentAsString = mockMvc.perform(get("/companies/1/employees")).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andReturn().getResponse().getContentAsString();
+        assertEquals(contentAsString,result);
+    }
 }
