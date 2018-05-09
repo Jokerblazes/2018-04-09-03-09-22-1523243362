@@ -3,12 +3,14 @@ package com.example.employee.restfulapi.controller;
 import com.example.employee.restfulapi.entity.Company;
 import com.example.employee.restfulapi.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController(value = "/companies")
+@RestController
+@RequestMapping(value = "/companies")
 public class CompanyController {
     //在此处完成Company API
     @Autowired
@@ -17,4 +19,6 @@ public class CompanyController {
     public List<Company> getCompanys() {
         return companyRepository.findAll();
     }
+
+
 }

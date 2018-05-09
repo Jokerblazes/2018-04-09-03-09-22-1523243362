@@ -15,7 +15,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = RestfulApiApplication.class)
 @WebAppConfiguration
@@ -31,8 +34,7 @@ public class RestfulApiApplicationTests {
 
     @Test
     public void testGetAllCompany() throws Exception {
-        System.out.println(mockMvc);
-        String contentAsString = mockMvc.perform(get("/companys")).andExpect(MockMvcResultMatchers.status().isOk())
+        String contentAsString = mockMvc.perform(get("/companies")).andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn().getResponse().getContentAsString();
         String result = "[{\"id\":1,\"companyName\":\"baidu\",\"employeesNumber\":1000,\"" +
@@ -56,4 +58,6 @@ public class RestfulApiApplicationTests {
                 "{\"id\":15,\"name\":\"huiwei3\",\"age\":19,\"gender\":\"male\",\"salary\":8000,\"companyId\":5}]}]";
         assertEquals(contentAsString, result);
     }
+
+
 }
