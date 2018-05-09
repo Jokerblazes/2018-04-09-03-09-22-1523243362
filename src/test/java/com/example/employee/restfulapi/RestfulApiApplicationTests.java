@@ -1,15 +1,11 @@
 package com.example.employee.restfulapi;
 
 import com.example.employee.restfulapi.controller.CompanyController;
-import com.example.employee.restfulapi.entity.Company;
 import org.flywaydb.core.Flyway;
-import org.hamcrest.Matcher;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
