@@ -19,23 +19,24 @@ public class CompanyController {
     //在此处完成Company API
     @Autowired
     private CompanyRepository companyRepository;
-    @RequestMapping(method = RequestMethod.GET )
+
+    @RequestMapping(method = RequestMethod.GET)
     public List<Company> getCompanies() {
         return companyRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Company getCompanyById(@PathVariable Long id) {
         return companyRepository.findOne(id);
     }
 
-    @RequestMapping(value = "/{id}/employees",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/employees", method = RequestMethod.GET)
     public List<Employee> getEmployeesByCompanyId(@PathVariable Long id) {
         Company company = companyRepository.findOne(id);
         return company.getEmployees();
     }
 
-    @RequestMapping(value = "/page/{page}/pageSize/{pageSize}",method = RequestMethod.GET)
+    @RequestMapping(value = "/page/{page}/pageSize/{pageSize}", method = RequestMethod.GET)
     public List<Company> getCompaniesByPage(@PathVariable Integer page, @PathVariable Integer pageSize) {
         Page<Company> companyPage = companyRepository.findAll(new PageRequest(page - 1, pageSize));
         return companyPage.getContent();
@@ -47,4 +48,9 @@ public class CompanyController {
         return true;
     }
 
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    public boolean updateCompany(Company company) {
+        companyRepository.save(company);
+        return true;
+    }
 }

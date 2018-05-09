@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -118,13 +119,21 @@ public class RestfulApiApplicationTests {
 
     @Test
     public void testAddCompany() throws Exception {
-        JSONObject json = new JSONObject();
-        json.put("companyName", "company1");
-        json.put("employeesNumber", 200);
         String contentAsString = mockMvc.perform(post("/companies")
                 .param("companyName", "company1")
                 .param("employeesNumber", "200").
                 contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse().getContentAsString();
+        assertEquals(contentAsString,"true");
+    }
+
+    @Test
+    public void testUpdateCompany() throws Exception {
+        String contentAsString = mockMvc.perform(put("/companies/1")
+                .param("id","1")
+                .param("companyName", "baidu1")
+                .param("employeesNumber", "1000").
+                        contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
         assertEquals(contentAsString,"true");
     }
