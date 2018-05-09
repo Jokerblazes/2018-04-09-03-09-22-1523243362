@@ -22,5 +22,8 @@ public class EmployeeController {
         return employeeRepository.findAll();
     }
 
-
+    @RequestMapping(method = RequestMethod.GET,value = "/{id}")
+    public Employee getEmployeeById(@PathVariable Long id) {
+        return employeeRepository.findOne(id);
+    }
 }

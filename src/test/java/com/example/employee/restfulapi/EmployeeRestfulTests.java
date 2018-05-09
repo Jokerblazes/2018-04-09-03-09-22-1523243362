@@ -65,5 +65,17 @@ public class EmployeeRestfulTests {
         assertEquals(contentAsString, result);
     }
 
+    @Test
+    public void testGetEmployeeById() throws Exception {
+        mockMvc.perform(get("/employees/1")).andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("baidu1"))
+                .andExpect(jsonPath("$.age").value(20))
+                .andExpect(jsonPath("$.gender").value("male"))
+                .andExpect(jsonPath("$.salary").value(6000))
+                .andExpect(jsonPath("$.companyId").value(1));
+    }
+
 
 }
