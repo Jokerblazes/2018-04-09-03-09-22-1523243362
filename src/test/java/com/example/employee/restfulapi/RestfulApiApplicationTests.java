@@ -2,12 +2,14 @@ package com.example.employee.restfulapi;
 
 import com.example.employee.restfulapi.controller.CompanyController;
 import com.example.employee.restfulapi.entity.Company;
+import org.flywaydb.core.Flyway;
 import org.hamcrest.Matcher;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,11 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -35,6 +33,10 @@ public class RestfulApiApplicationTests {
 
     @Before
     public void setUp() throws Exception {
+        Flyway flyway = new Flyway();
+        flyway.setDataSource("jdbc:mysql://localhost:3306/employee_db2","root","123456");
+        flyway.clean();
+        flyway.migrate();
         mockMvc = MockMvcBuilders.standaloneSetup(companyController).build();
     }
 
@@ -130,13 +132,14 @@ public class RestfulApiApplicationTests {
     @Test
     public void testUpdateCompany() throws Exception {
         String contentAsString = mockMvc.perform(put("/companies/1")
-                .param("id","1")
                 .param("companyName", "baidu1")
                 .param("employeesNumber", "1000").
                         contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
         assertEquals(contentAsString,"true");
     }
+
+
 
 
 }
