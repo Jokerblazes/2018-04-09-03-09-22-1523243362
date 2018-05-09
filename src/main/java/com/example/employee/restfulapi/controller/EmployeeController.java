@@ -53,4 +53,10 @@ public class EmployeeController {
         employeeRepository.save(employee);
         return true;
     }
+
+    @RequestMapping(method = RequestMethod.DELETE,value = "/{id}")
+    public boolean updateEmployee(@PathVariable Long id) {
+        employeeRepository.delete(id);
+        return true;
+    }
 }
