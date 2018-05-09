@@ -13,7 +13,7 @@ public class Company {
     private Long id;
     private String companyName;
     private Integer employeesNumber;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER )
     @JoinColumn(name = "companyId")
     private List<Employee> employees;
     public Company() {
