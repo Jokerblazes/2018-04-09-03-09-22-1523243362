@@ -41,4 +41,10 @@ public class CompanyController {
         return companyPage.getContent();
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public boolean addCompany(Company company) {
+        companyRepository.save(company);
+        return true;
+    }
+
 }
