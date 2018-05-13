@@ -43,15 +43,13 @@ public class CompanyController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean addCompany(Company company) {
-        companyRepository.save(company);
-        return true;
+    public Company addCompany(Company company) {
+        return companyRepository.save(company);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public boolean updateCompany(Company company) {
-        companyRepository.save(company);
-        return true;
+    public Company updateCompany(Company company) {
+        return companyRepository.save(company);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)

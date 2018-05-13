@@ -117,22 +117,26 @@ public class RestfulApiApplicationTests {
 
     @Test
     public void testAddCompany() throws Exception {
+        String result = "{\"id\":6,\"companyName\":\"company1\"," +
+                "\"employeesNumber\":200,\"employees\":null}";
         String contentAsString = mockMvc.perform(post("/companies")
                 .param("companyName", "company1")
                 .param("employeesNumber", "200").
                 contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
-        assertEquals(contentAsString,"true");
+        assertEquals(contentAsString,result);
     }
 
     @Test
     public void testUpdateCompany() throws Exception {
+        String result = "{\"id\":1,\"companyName\":\"baidu1\"," +
+                "\"employeesNumber\":1000,\"employees\":null}";
         String contentAsString = mockMvc.perform(put("/companies/1")
                 .param("companyName", "baidu1")
                 .param("employeesNumber", "1000").
                         contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
-        assertEquals(contentAsString,"true");
+        assertEquals(contentAsString, result);
     }
 
     @Test
