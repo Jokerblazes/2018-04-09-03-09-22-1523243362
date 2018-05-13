@@ -43,15 +43,13 @@ public class EmployeeController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean addEmployee(Employee employee) {
-        employeeRepository.save(employee);
-        return true;
+    public Employee addEmployee(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "/{id}")
-    public boolean updateEmployee(Employee employee) {
-        employeeRepository.save(employee);
-        return true;
+    public Employee updateEmployee(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
     @RequestMapping(method = RequestMethod.DELETE,value = "/{id}")

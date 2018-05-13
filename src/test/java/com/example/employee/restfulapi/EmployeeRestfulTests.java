@@ -110,6 +110,8 @@ public class EmployeeRestfulTests {
 
     @Test
     public void testAddEmployee() throws Exception {
+        String result = "{\"id\":16,\"name\":\"name1\",\"age\":1,\"gender\":\"male\"," +
+                "\"salary\":5000,\"companyId\":1}";
         String contentAsString = mockMvc.perform(post("/employees")
                 .param("name", "name1")
                 .param("age", "1")
@@ -118,19 +120,22 @@ public class EmployeeRestfulTests {
                 .param("companyId", "1").
                         contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
-        assertEquals(contentAsString,"true");
+        assertEquals(contentAsString,result);
     }
 
     @Test
     public void testUpdateEmployee() throws Exception {
+        String result = "{\"id\":1,\"name\":\"baidu2\",\"age\":1," +
+                "\"gender\":\"male\",\"salary\":5000,\"companyId\":1}";
         String contentAsString = mockMvc.perform(put("/employees/1")
                 .param("name", "baidu2")
                 .param("age", "1")
                 .param("gender", "male")
+                .param("companyId","1")
                 .param("salary", "5000").
                         contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse().getContentAsString();
-        assertEquals(contentAsString,"true");
+        assertEquals(contentAsString, result);
     }
 
     @Test
